@@ -1,5 +1,8 @@
 <?php 
     require_once('connectVarNew.php');
+
+    $auth->checkLoginAndRedirect( "login.php" , User::NOT_LOGIN );
+
     $ad_query = "SELECT * FROM `profile` WHERE `type` = 'adcarry'";
     $ap_query = "SELECT * FROM `profile` WHERE `type` = 'apcarry'";
     $tank_query = "SELECT * FROM `profile` WHERE `type` = 'tank'";
@@ -25,10 +28,14 @@
         td:first-child{
             min-width: initial;
         }
-
+        img {
+            width: 120px;
+        }
     </style>
 </head>
 <body>
+    <a href="logout.php">logout</a>
+    <a href="add_heros.php">add new hero</a>
     <section>
         <table>
             
@@ -43,7 +50,6 @@
             </thead>
             <tbody>
                 <?php foreach( $pdo->query( $ad_query ) as $key => $row ){  ?>
-
                     <tr>
                         <td><img src="<?=$row['picture_link'];?>"></td>
                         <td><?= $row['name']?></td>
